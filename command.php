@@ -9,13 +9,20 @@ $Calculations=new calculation_of_bonus_and_payment(); //class for the calculatio
 
 $paydays = $Calculations->calculate12MonthsPaydays();
 
-//print_r($paydays);
-
 $bonusday = $Calculations->calculate12MonthsBonusdays();
 
-//print_r($bonusday);
+$MonthNames = $Calculations->next12MonthsNames();
 
-writeintoCSVfile($filename,"Next12MonthsPaydays:",$paydays,"Next12MonthsBonusDays:",$bonusday);
+$list1 = array (
+    $paydays,
+    $bonusday,
+    $MonthNames
+);
+
+$list=rotateMatrix90($list1); //making the columns
+
+
+writeintoCSVfile($filename,$list);
 
 
 ?>

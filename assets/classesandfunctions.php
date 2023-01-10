@@ -120,28 +120,51 @@ class calculation_of_bonus_and_payment{
         return $bonusDays;
 
     }
+    public function next12MonthsNames(){
+
+        $monthsNames=[];
+
+        $monthFirstDate=date('Y-m-01'); //this month first date
+
+        for ($i = 0; $i < 12; $i++){
+
+            $monthsNames[]=$monthFirstDate;
+            $datetime = new DateTime($monthFirstDate);
+            $datetime->modify('first day of +1 month');
+            $monthFirstDate= $datetime->format('Y-m-01');
+
+        }
+
+        return $monthsNames;
+
+    }
 
 
 }
 
-function writeintoCSVfile($filename,$descriptionString,$array,$descriptionString2,$array2){
+function writeintoCSVfile($filename,$array){
 
-    $fp = fopen($filename, 'w');
-    $line[0]=$descriptionString;
-    fputcsv($fp, $line);
-    foreach($array as $line){
+    $file = fopen($filename,"w");
+    $header=array("MonthNames", "Bonusdays","Paydays");
+    fputcsv($file, $header);
 
-        $val = explode(",",$line);
-        fputcsv($fp, $val);
+    foreach ($array as $line) {
+        fputcsv($file, $line);
     }
 
-    $line2[0]=$descriptionString2;
-    fputcsv($fp, $line2);
-    foreach($array2 as $line){
+    fclose($file);
 
-        $val = explode(",",$line);
-        fputcsv($fp, $val);
+}
+
+function rotateMatrix90( $matrix )
+{
+    $matrix = array_values( $matrix );
+    $matrix90 = array();
+
+    // make each new row = reversed old column
+    foreach( array_keys( $matrix[0] ) as $column ){
+        $matrix90[] = array_reverse( array_column( $matrix, $column ) );
     }
-    fclose($fp);
 
+    return $matrix90;
 }
