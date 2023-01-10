@@ -9,9 +9,13 @@ $Calculations=new calculation_of_bonus_and_payment(); //class for the calculatio
 
 $paydays = $Calculations->calculate12MonthsPaydays();
 
-print_r($paydays);
+//print_r($paydays);
 
-writeintoCSVfile($filename,"Paydays:",$paydays);
+$bonusday = $Calculations->calculate12MonthsBonusdays();
+
+//print_r($bonusday);
+
+writeintoCSVfile($filename,"Next12MonthsPaydays:",$paydays,"Next12MonthsBonusDays:",$bonusday);
 
 
 ?>
